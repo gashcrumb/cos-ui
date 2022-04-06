@@ -61,6 +61,7 @@ export const ConnectorDrawer: FunctionComponent<ConnectorDrawerProps> = ({
               createdAt={new Date(connector.created_at!)}
               modifiedAt={new Date(connector.modified_at!)}
               status={connector.status?.state!}
+              error={connector.status?.error}
               onClose={onClose}
             />
           ) : undefined
@@ -82,6 +83,7 @@ export type ConnectorDrawerPanelContentProps = {
   createdAt: Date;
   modifiedAt: Date;
   status: string;
+  error?: string;
   onClose: () => void;
 };
 
@@ -96,6 +98,7 @@ export const ConnectorDrawerPanelContent: FunctionComponent<ConnectorDrawerPanel
     createdAt,
     modifiedAt,
     status,
+    error,
     onClose,
   }) => {
     const { t } = useTranslation();
@@ -183,6 +186,7 @@ export const ConnectorDrawerPanelContent: FunctionComponent<ConnectorDrawerPanel
                         {t('{{ date, ago }}', { date: modifiedAt })}
                       </time>
                     )}
+                    {error && textListItem('Failure Reason', error)}
                   </TextList>
                 </TextContent>
               </div>
